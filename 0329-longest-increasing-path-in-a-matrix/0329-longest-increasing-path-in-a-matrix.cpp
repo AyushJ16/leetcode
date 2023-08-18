@@ -25,7 +25,7 @@ public:
                     int r=i+dy[k],c=j+dx[k];
                     if(r>=0 && r<m && c>=0 && c<n){
                         if(matrix[r][c]<matrix[i][j]){
-                            cout<<i*n+(j)<<' '<<r*n+(c)<<endl;
+                            // cout<<i*n+(j)<<' '<<r*n+(c)<<endl;
                             adj[r*n + (c)].push_back(i*n + (j));
                             indegree[i*n+j]++;
                         }
