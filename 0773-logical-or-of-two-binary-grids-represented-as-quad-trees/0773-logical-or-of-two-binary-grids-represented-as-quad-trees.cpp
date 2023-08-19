@@ -44,17 +44,17 @@ public:
         if(quadTree1->isLeaf==true && quadTree2->isLeaf==true) {
             return new Node(quadTree1->val || quadTree2->val, true);
         }
-        else if(quadTree1->isLeaf==true) {
-            if(quadTree1->val==true) {
-                return new Node(true, true);
+        else if(quadTree1->isLeaf==1) {
+            if(quadTree1->val==1) {
+                return new Node(1, true);
             }
             else {
                 return quadTree2;
             }
         } 
         else if(quadTree2->isLeaf==true) {
-            if(quadTree2->val==true) {
-                return new Node(true, true);
+            if(quadTree2->val==1) {
+                return new Node(1, true);
             }
             else {
                 return quadTree1;
