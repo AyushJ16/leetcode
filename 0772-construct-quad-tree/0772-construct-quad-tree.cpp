@@ -58,7 +58,7 @@ private:
             auto n=new Node(grid[x][y],true);
             return n;
         }
-        auto node = new Node(0, false);
+        auto node = new Node(1, false);
         int half = len/2;
         node->topLeft = dfs(grid, x, y, half);
         node->topRight = dfs(grid, x , y+ half, half);
