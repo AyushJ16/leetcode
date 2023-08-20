@@ -7,15 +7,20 @@ public:
         if(preorder[0]=='#' and preorder.size()!=1){
             return false;
         }
-        stringstream ss(preorder);
-        string curr;
-        int nodes=1;
-        while(getline(ss,curr,',')){
-            nodes--;
-            if(nodes<0)return false;
-            if(curr != "#")nodes+=2;
+        int c=1;
+        for(int i=0;i<preorder.size();){
+            c--;
+            if(c<0){
+                return false;
+            }
+            if(preorder[i]!='#')c+=2;
+            while(i<preorder.size() && preorder[i]!=',' ){
+                i++;
+            }
+            i++;
+
         }
-        return nodes==0;
+        return c==0;
         
     }
 };
