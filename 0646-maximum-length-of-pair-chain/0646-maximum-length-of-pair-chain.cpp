@@ -1,22 +1,27 @@
 class Solution {
 public:
-	int solve(int i,int prev,vector<vector<int>>& pairs,int n,vector<vector<int>>& dp){
-		if(i==n) return 0;
+    static bool compare(const vector<int>& a, const vector<int>& b) {
+        return a[1] < b[1];
+    }
 
-		if(dp[i][prev+1]!=-1) return dp[i][prev+1];
+    int findLongestChain(vector<vector<int>>& pairs) {
+        int n = pairs.size();
+        if (n == 0) {
+            return 0;
+        }
 
-		int pick=-1e9;
+        sort(pairs.begin(), pairs.end(), compare);
 
-		if(prev==-1 || pairs[prev][1]<pairs[i][0])pick=1+solve(i+1,i,pairs,n,dp);
-		int not_pick=solve(i+1,prev,pairs,n,dp);
+        vector<int> dp(n, 1);
 
-		return dp[i][prev+1]=max(pick,not_pick);
-	}
+        for (int i = 1; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (pairs[j][1] < pairs[i][0]) {
+                    dp[i] = max(dp[i], dp[j] + 1);
+                }
+            }
+        }
 
-	int findLongestChain(vector<vector<int>>& pairs) {
-		int n=pairs.size();
-		sort(pairs.begin(),pairs.end());
-		vector<vector<int>> dp(n,vector<int>(n+1,-1));
-		return solve(0,-1,pairs,n,dp);
-	}
+        return *max_element(dp.begin(), dp.end());
+    }
 };
