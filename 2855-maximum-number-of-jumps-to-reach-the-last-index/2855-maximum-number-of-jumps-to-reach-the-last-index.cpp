@@ -6,7 +6,9 @@ public:
         if(dp[index]!=-1) return dp[index];
         for(int i=index+1;i<nums.size();i++){
             if(abs(nums[index]-nums[i])<=target){
-                    maxi=max(maxi,1+helper(nums,target,i,dp));
+                    int t=helper(nums,target,i,dp);
+                    if(t!=-1)
+                    maxi=max(maxi,1+t);
             }
         }
         return dp[index]=maxi;
