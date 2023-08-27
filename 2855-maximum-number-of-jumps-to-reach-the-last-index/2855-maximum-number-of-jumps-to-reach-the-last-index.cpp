@@ -1,7 +1,7 @@
 class Solution {
 public:
     int helper(vector<int>& nums, int target,int index,vector<int>&dp){
-        if(index>=nums.size()-1) return 0;
+        if(index==nums.size()-1) return 0;
         int maxi=INT_MIN;
         if(dp[index]!=-1) return dp[index];
         for(int i=index+1;i<nums.size();i++){
