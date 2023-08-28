@@ -1,51 +1,30 @@
+
 class MyStack {
+private:
+    std::queue<int> q;
+
 public:
-    queue <int> q1,q2;
-    MyStack() {
-        
-    }
-    
+    MyStack() {}
+
     void push(int x) {
-        q1.push(x);
-        while(!q2.empty()){
-            q1.push(q2.front());
-            q2.pop();
-
-        }
-        while(!q1.empty()){
-            q2.push(q1.front());
-            q1.pop();
+        q.push(x);
+        for (int i = 0; i < q.size() - 1; ++i) {
+            q.push(q.front());
+            q.pop();
         }
     }
-    
+
     int pop() {
-        if(q2.size()){
-            int a=q2.front();
-            q2.pop();
-            return a;
+        int val = q.front();
+        q.pop();
+        return val;
+    }
 
-        }
-        return -1;
-    }
-    
     int top() {
-        if(q2.size()){
-            return q2.front();
-        }
-        return -1;
+        return q.front();
     }
-    
+
     bool empty() {
-        return q2.size()==0;
-        
+        return q.empty();
     }
 };
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack* obj = new MyStack();
- * obj->push(x);
- * int param_2 = obj->pop();
- * int param_3 = obj->top();
- * bool param_4 = obj->empty();
- */
