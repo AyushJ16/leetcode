@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
-        map<string,multiset<string>> adj;
+        unordered_map<string,multiset<string>> adj;
         for(auto &it:tickets){
             adj[it[0]].insert(it[1]);
         }
