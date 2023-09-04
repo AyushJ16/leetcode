@@ -1,56 +1,49 @@
-#define ll long long
-#define mod 1000000007
-const int N=1e5+1;
 class Solution {
 public:
-    ll fact[N];
-
-    void pre(){
-       fact[0]=1;
-       for(int i=1;i<N;i++){
-          fact[i]=(1ll*fact[i-1]*i)%mod;
-       }
-    }
-    
-    ll binexp(int a,int b,int m){
-       int result=1;
-       while(b>0){
-          if(b&1){
-             result=(1ll*result*a)%m;
-          }
-          a=(1ll*a*a)%m;
-          b>>=1;
-       }
-
-       return result;
-    }
-    
-    int countAnagrams(string s) {
-        pre();
-        int i=0;
-        int n=s.length();
-        
-        ll ans=1;
-        while(i<n){
-            vector<int> cnt(26,0);
-            int count=0;
-            ll curr;
-            while(i<n && s[i]!=' '){
-                count++;
-                cnt[s[i]-'a']++;
-                i++;
+    int getinverse(long long int a,int b,int c){
+        long long int ans = 1;
+        while(b){
+            if(b&1){
+                ans = (ans*a)%c;
             }
-            curr=fact[count];
-            ll den=1;
-            for(int i=0;i<26;i++) 
-            if(cnt[i]>1) 
-            den=(den*fact[cnt[i]])%mod;
-
-            curr=(curr*binexp(den,mod-2,mod))%mod;
-            ans=(ans*curr)%mod;
-            i++;
+            a = (a*a)%c;
+            b >>= 1;
         }
-        
-        return int(ans%mod);
+        return ans;
+    }
+    int countAnagrams(string s) {
+        int mod = 1e9+7;
+        int n = s.length(),i;
+        vector<int> fact(n+10,1);
+        for(i = 2; i <= n+8; i++){
+            fact[i] = (fact[i-1]*1LL*i)%mod;
+        }
+        long long int ans = 1,tmp;
+        vector<int> factinv(n+10,0);
+        for(int i = 0; i <= n+8; i++){
+            factinv[i] = getinverse(fact[i],mod-2,mod);
+        }
+        vector<int> dp(26,0);
+        int k = 0;
+        for(auto &i: s){
+            if(i==' '){
+                tmp = fact[k];//
+                for(auto &j: dp){
+                    tmp = (tmp*1LL*factinv[j])%mod;
+                }
+                ans = (ans*tmp)%mod;
+                fill(dp.begin(),dp.end(),0);
+                k = 0;
+            }else{
+                dp[i-'a']++;
+                k++;
+            }
+        }
+        tmp = fact[k];
+        for(auto &j: dp){
+        tmp = (tmp*1LL*factinv[j])%mod;
+        }
+        ans = (ans*tmp)%mod;
+        return ans;
     }
 };
