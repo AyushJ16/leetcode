@@ -1,37 +1,21 @@
 class Solution {
-    unordered_map<int,vector<int>>mp;
-    vector<vector<int>>dp;
-private:
-    int memo(int i,int j ,vector<int>&nums1){
-        if(i<0 || j<0){
-            return 0;
-        }
-        if(dp[i][j]!=-1){
-            return dp[i][j];
-        }
-        int ti=-1;
-        for(int k=0;k<mp[nums1[i]].size();k++){
-            if(mp[nums1[i]][k]>j)
-            break;
-            ti=mp[nums1[i]][k];
-        }
-        int t=0,nt=0;
-        nt=0+memo(i-1,j,nums1);
-        if(ti!=-1)
-        t=1+memo(i-1,ti-1,nums1);
-        return dp[i][j]=max(t,nt);
-
-    }
 public:
-    int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
-        int n=nums2.size();
-        for(int i=0;i<n;i++){
-            mp[nums2[i]].push_back(i);
-        
+    int count(vector<int>&nums1, vector<int>&nums2, int i, int j, vector<vector<int>>&dp){
+        if(i==nums1.size() || j==nums2.size()) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        int res=0;
+        if(nums1[i]==nums2[j]){
+            res=1+count(nums1, nums2, i+1, j+1, dp);
         }
-        int n1=nums1.size();
-        dp.resize(n1,vector<int>(n,-1));
-        return memo(n1-1,n-1,nums1);
-
+        else{
+            res=max(count(nums1, nums2, i+1, j, dp), count(nums1, nums2, i, j+1, dp));
+        }
+        return dp[i][j]=res;
+    }
+    int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
+        int m=nums1.size();
+        int n=nums2.size();
+        vector<vector<int>>dp(m+1, vector<int>(n+1, -1));
+        return count(nums1, nums2, 0, 0, dp);
     }
 };
