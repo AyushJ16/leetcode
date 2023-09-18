@@ -9,7 +9,7 @@ public:
                 st.push(nums[i]);
             }
             else{
-                while(!st.empty() && st.top()>nums[i] && mp>0 && st.size()+n-i-1 >= (k)){
+                while(!st.empty() && st.top()>nums[i] && st.size()+n-i-1 >= (k)){
                     if(st.size()+n-i-1 < (k)){
                         break;
                     }
