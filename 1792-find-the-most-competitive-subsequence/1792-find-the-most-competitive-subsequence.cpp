@@ -20,7 +20,7 @@ public:
             }
         }
         cout<<st.size()<<endl;
-        while(mp--){
+        while(st.size()>k){
             cout<<st.top()<<" ";
             st.pop();
         }
