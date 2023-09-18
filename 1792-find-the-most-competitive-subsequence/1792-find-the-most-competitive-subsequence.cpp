@@ -26,6 +26,7 @@ public:
         }
         vector<int>ans;
         while(!st.empty()){
+            // ans.emplace(ans.begin(),st.top());
             ans.push_back(st.top());
             st.pop();
         }
