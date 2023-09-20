@@ -1,18 +1,21 @@
 class Solution {
-int dp[100001];
+int dp[100001][2];
 private:
-    bool solve(int n){
+    bool solve(int n,int i){
         if(n==0){
             return false;
         }
-        if(dp[n]!=-1){
-            return dp[n];
+        if(dp[n][i]!=-1){
+            return dp[n][i];
         }
         bool ans=false;
         for(int j=1;j*j<=n;j++){
-            if(solve(n-(j*j))==0)return dp[n]=1;
+            // if(i==0){
+                if(solve(n-(j*j),!i)==0)
+                return dp[n][i]=1;
+            // }
         }
-        return dp[n]=0;
+        return dp[n][i]=0;
     }
 public:
     bool winnerSquareGame(int n) {
@@ -27,6 +30,6 @@ public:
             return true;
         }
         memset(dp,-1,sizeof dp);
-        return solve(n);
+        return solve(n,0);
     }
 };
