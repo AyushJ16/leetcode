@@ -2,12 +2,12 @@ class Solution {
 public:
     string removeDuplicateLetters(string s) {
         // memset(dp,"$",sizeof dp);
-        int freq[26];
+        // int freq[26];
         unordered_map<char,int>lo;
         unordered_set<char>seen;
         int i=0;
         for(auto &c:s){
-            freq[c-'a']++;
+            // freq[c-'a']++;
             lo[c]=i;
             i++;
         }
