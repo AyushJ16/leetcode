@@ -1,27 +1,18 @@
 class Solution {
-int dp[59];
-private:    
-    int solve(int n){
-        if(n==1){
-            return 1;
-        }
-        if(dp[n]!=-1)return dp[n];
-        int ans=INT_MIN;
-        for(int i=1;i<=(n/2);i++){
-            ans=max(ans,solve(i)*solve(n-i));
-        }
-        if(ans<n){
-            ans= n;
-        }
-        return dp[n]=ans;
-    }
 public:
     int integerBreak(int n) {
-        memset(dp,-1,sizeof dp);
-        int ans=INT_MIN;
-        for(int i=1;i<=(n/2);i++){
-            ans=max(ans,solve(i)*solve(n-i));
+        if (n == 2) return 1;
+        if (n == 3) return 2;
+        
+        int count_of_3s = n / 3;
+        int remainder = n % 3;
+        
+        if (remainder == 0) {
+            return pow(3, count_of_3s);
+        } else if (remainder == 1) {
+            return pow(3, count_of_3s - 1) * 4;
+        } else {
+            return pow(3, count_of_3s) * 2;
         }
-        return ans;
     }
 };
